@@ -1,5 +1,5 @@
 import puppeteer from "puppeteer";
-import { BaseBookingOptions, Booking, MentoringBookingOptions, bookingTypes } from "../types";
+import { BaseBookingOptions, Booking, MentoringBookingOptions, bookingTypes } from "../types.js";
 import { sys } from "typescript";
 
 const browser = await puppeteer.launch({ headless: "new" });
@@ -43,19 +43,19 @@ export async function getMonth(year: number, month: number): Promise<(BaseBookin
 					onMouseOver = onMouseOver.replace(/<br \/>/g, " ");
 					onMouseOver = onMouseOver.replace(/<[^>]*>/g, "");
 
-					const bookingType = onMouseOver.match(/Booking Type: (.*) Position:/)[1];
+					const bookingType = onMouseOver.match(/Booking Type: (.*) Position:/)?.[1];
 					const baseData: BaseBookingOptions = {
 						type: bookingType as keyof typeof bookingTypes,
-						position: onMouseOver.match(/Position: (.*) Date:/)[1],
+						position: onMouseOver?.match(/Position: (.*) Date:/)?.[1] ?? "",
 						bookedBy: {
-							name: onMouseOver.match(/Booked By: ([^\(]*)/)[1].trim(),
-							cid: parseInt(onMouseOver.match(/Booked By: .* \((.*)\)/)[1]),
+							name: onMouseOver?.match(/Booked By: ([^\(]*)/)?.[1]?.trim() ?? "",
+							cid: parseInt((onMouseOver.match(/Booked By: .* \((.*)\)/) ?? [])[1] ?? "0"),
 						},
 						startTime: Booking.booktimeToDate(
-							`${onMouseOver.match(/Date: (.*) Book Time:/)[1]} ${onMouseOver.match(/Book Time: (.*) -/)[1]}`
+							`${onMouseOver?.match(/Date: (.*) Book Time:/)?.[1] ?? ""} ${onMouseOver?.match(/Book Time: (.*) -/)?.[1] ?? ""}`
 						),
 						endTime: Booking.booktimeToDate(
-							`${onMouseOver.match(/Date: (.*) Book Time:/)[1]} ${onMouseOver.match(/Book Time: .* - (.*)/)[1]}`
+							`${onMouseOver?.match(/Date: (.*) Book Time:/)?.[1] ?? ""} ${onMouseOver?.match(/Book Time: .* - (.*)/)?.[1] ?? ""}`
 						),
 					};
 
@@ -64,13 +64,13 @@ export async function getMonth(year: number, month: number): Promise<(BaseBookin
 						case bookingTypes.Mentoring: {
 							finalData = {
 								...baseData,
-								bookedOn: Booking.timestampToDate(onMouseOver.match(/Date requested: (.*) Mentor:/)[1]),
-								requestedOn: Booking.timestampToDate(onMouseOver.match(/Date requested: (.*) Mentor:/)[1]),
+								bookedOn: Booking.timestampToDate(onMouseOver.match(/Date requested: (.*) Mentor:/)?.[1] ?? ""),
+								requestedOn: Booking.timestampToDate(onMouseOver.match(/Date requested: (.*) Mentor:/)?.[1] ?? ""),
 								mentor: {
-									name: onMouseOver.match(/Mentor: ([^\(]*)/)[1].trim(),
-									cid: parseInt(onMouseOver.match(/Mentor: .* \((.*)\)/)[1]),
+									name: onMouseOver.match(/Mentor: ([^\(]*)/)?.[1].trim() ?? "",
+									cid: parseInt(onMouseOver.match(/Mentor: .* \((.*)\)/)?.[1] ?? "0"),
 								},
-								acceptedOn: Booking.timestampToDate(onMouseOver.match(/Accepted on: (.*)/)[1]),
+								acceptedOn: Booking.timestampToDate(onMouseOver.match(/Accepted on: (.*)/)?.[1] ?? ""),
 							};
 							break;
 						}

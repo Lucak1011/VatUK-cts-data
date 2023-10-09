@@ -1,9 +1,11 @@
 {
 	"name": "cts-data",
+	"type": "module",
 	"scripts": {
-		"fetch-month": "ts-node fetcher/fetch-last-month.ts",
-		"fetch-all": "ts-node fetcher/fetch-historical.ts",
-		"build-website": "ts-node builder/website.ts"
+		"build": "tsc",
+		"fetch-month": "tsc && node build/fetcher/fetch-last-month.js",
+		"fetch-all": "tsc && node build/fetcher/fetch-historical.js",
+		"build-website": "tsc && node build/builder/website.js"
 	},
 	"dependencies": {
 		"puppeteer": "^21.3.6",

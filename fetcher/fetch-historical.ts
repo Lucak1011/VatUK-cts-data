@@ -1,6 +1,5 @@
-import * as fs from "fs";
 import { browserInit, browserKill, getMonth } from "./index.js";
-
+import fs from "fs";
 await browserInit();
 
 let data: any = [];
