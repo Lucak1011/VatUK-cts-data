@@ -1,20 +1,15 @@
 {
 	"name": "cts-data",
-	"module": "index.ts",
-	"type": "module",
-	"devDependencies": {
-		"bun-types": "latest"
-	},
 	"scripts": {
-		"start": "bun run index.ts",
-		"fetch-month": "bun run fetcher/fetch-last-month.ts",
-		"fetch-all": "bun run fetcher/fetch-historical.ts",
-		"build-website": "bun run builder/website.ts"
-	},
-	"peerDependencies": {
-		"typescript": "^5.0.0"
+		"fetch-month": "ts-node fetcher/fetch-last-month.ts",
+		"fetch-all": "ts-node fetcher/fetch-historical.ts",
+		"build-website": "ts-node builder/website.ts"
 	},
 	"dependencies": {
-		"puppeteer": "^21.3.6"
+		"puppeteer": "^21.3.6",
+		"ts-node": "^10.9.1"
+	},
+	"devDependencies": {
+		"typescript": "^5.2.2"
 	}
 }

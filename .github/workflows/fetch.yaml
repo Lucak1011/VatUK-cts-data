@@ -12,12 +12,9 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v3
-            - uses: oven-sh/setup-bun@v1
-            - run: bun install
-            - run: cd node_modules/puppeteer
-            - run: bun run install.mjs
-            - run: cd ..
-            - run: bun run fetch-month
+            - uses: actions/setup-node@v3
+            - run: npm install
+            - run: npm run fetch-month
             - uses: peaceiris/actions-gh-pages@v3
               with:
                   github_token: ${{ secrets.GITHUB_TOKEN }}

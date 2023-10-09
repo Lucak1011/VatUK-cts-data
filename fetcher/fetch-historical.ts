@@ -1,4 +1,5 @@
-import { browserInit, browserKill, getMonth } from ".";
+import * as fs from "fs";
+import { browserInit, browserKill, getMonth } from "./index.js";
 
 await browserInit();
 
@@ -12,4 +13,4 @@ for (let year = 2006; year <= new Date().getFullYear(); year++) {
 await browserKill();
 console.log(data.length);
 
-Bun.write("../dist/raw/data.json", JSON.stringify(data, null, 4));
+fs.writeFileSync("../dist/raw/data.json", JSON.stringify(data, null, 4));
