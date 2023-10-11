@@ -1,6 +1,5 @@
 import puppeteer from "puppeteer";
 import { BaseBookingOptions, Booking, MentoringBookingOptions, bookingTypes } from "../types.js";
-import { sys } from "typescript";
 
 const browser = await puppeteer.launch({ headless: "new" });
 const page = await browser.newPage();
