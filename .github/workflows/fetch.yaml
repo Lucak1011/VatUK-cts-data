@@ -13,6 +13,12 @@ jobs:
         steps:
             - uses: actions/checkout@v3
             - uses: actions/setup-node@v3
-            - run: npm install
-            - run: npm run fetch-month
+            - name: Install dependencies
+              run: npm install
+            - name: Fetch data for last month
+              env:
+                  MONGO_USER: ${{ secrets.MONGO_USER }}
+                  MONGO_PASSWORD: ${{ secrets.MONGO_PASSWORD }}
+                  MONGO_HOST: ${{ secrets.MONGO_HOST }}
+              run: npm run fetch-month
             - uses: stefanzweifel/git-auto-commit-action@v4
