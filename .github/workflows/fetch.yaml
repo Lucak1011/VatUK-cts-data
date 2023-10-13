@@ -21,4 +21,3 @@ jobs:
                   MONGO_PASSWORD: ${{ secrets.MONGO_PASSWORD }}
                   MONGO_HOST: ${{ secrets.MONGO_HOST }}
               run: npm run fetch-month
-            - uses: stefanzweifel/git-auto-commit-action@v4

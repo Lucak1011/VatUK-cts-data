@@ -9,7 +9,7 @@ export class DB {
 			env.config();
 		}
 
-		this.uri = `mongodb://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@${process.env.MONGO_ADDRESS}:27017/cts?directConnection=true&serverSelectionTimeoutMS=2000`;
+		this.uri = `mongodb://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@${process.env.MONGO_ADDRESS}:27017/cts?directConnection=true&serverSelectionTimeoutMS=5000`;
 	}
 
 	static async appendData(data: BaseBookingOptions[]) {
