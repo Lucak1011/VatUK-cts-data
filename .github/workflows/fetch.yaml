@@ -6,7 +6,7 @@ on:
     workflow_dispatch:
 
 jobs:
-    fetch:
+    fetch-data:
         permissions:
             contents: write
         runs-on: ubuntu-latest
@@ -18,5 +18,9 @@ jobs:
             - name: "Create env file"
               run: |
                   echo "${{ secrets.ENV_FILE }}" > .env
+
+            uses: "kota65535/github-openvpn-connect-action@v2"
+                with:
+                    config_file: ${{ secrets.VPN }}
             - name: Fetch data for last month
               run: npm run fetch-month
