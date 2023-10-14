@@ -20,6 +20,7 @@ jobs:
                   echo "${{ secrets.ENV_FILE }}" > .env
             - uses: kota65535/github-openvpn-connect-action@v2
               with:
-                  config_file: ${{ secrets.VPN }}
+                  config_file: .github/workflows/config.ovpn
+                  passphrase: ${{ secrets.OPENVPN_PASSWORD }}
             - name: Fetch data for last month
               run: npm run fetch-month
