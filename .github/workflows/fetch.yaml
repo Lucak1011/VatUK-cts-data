@@ -18,13 +18,5 @@ jobs:
             - name: "Create env file"
               run: |
                   echo "${{ secrets.ENV_FILE }}" > .env
-            - name: Install OpenVPN
-              run: |
-                  sudo apt update
-                  sudo apt install -y openvpn openvpn-systemd-resolved
-            - uses: kota65535/github-openvpn-connect-action@v2
-              with:
-                  config_file: .github/workflows/config.ovpn
-                  password: ${{ secrets.OPENVPN_PASSWORD }}
             - name: Fetch data for last month
               run: npm run fetch-month
