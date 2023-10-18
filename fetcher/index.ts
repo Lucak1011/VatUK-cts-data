@@ -74,10 +74,6 @@ export async function getMonth(year: number, month: number): Promise<(BaseBookin
 							};
 							break;
 						}
-						case bookingTypes.Exam: {
-							finalData.bookedBy = null as any;
-							break;
-						}
 					}
 					data.push(finalData);
 				}
@@ -87,3 +83,7 @@ export async function getMonth(year: number, month: number): Promise<(BaseBookin
 
 	return data;
 }
+
+await browserInit();
+await getMonth(2023, 10);
+await browserKill();
