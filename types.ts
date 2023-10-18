@@ -11,6 +11,7 @@ interface VatsimUser {
 }
 
 export interface BaseBookingOptions {
+	id: number;
 	type: keyof typeof bookingTypes;
 	position: string;
 	bookedBy: VatsimUser;
@@ -35,7 +36,13 @@ export class Booking {
 		const hours = parseInt(dateArray[4].split(":")[0]);
 		const minutes = parseInt(dateArray[4].split(":")[1]);
 
-		return new Date(Date.UTC(year, month, day, hours, minutes));
+		const dateObj = new Date(Date.UTC(year, month, day, hours, minutes));
+
+		if (isNaN(dateObj.getTime())) {
+			return new Date(0);
+		}
+
+		return dateObj;
 	}
 
 	static timestampToDate(timestamp: string): Date {
@@ -50,6 +57,12 @@ export class Booking {
 		const minutes = parseInt(time[1]);
 		const seconds = parseInt(time[2]);
 
-		return new Date(Date.UTC(year, month, day, hours, minutes, seconds));
+		const dateObj = new Date(Date.UTC(year, month, day, hours, minutes, seconds));
+
+		if (isNaN(dateObj.getTime())) {
+			return new Date(0);
+		}
+
+		return dateObj;
 	}
 }

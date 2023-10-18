@@ -45,11 +45,12 @@ export async function getMonth(year: number, month: number): Promise<(BaseBookin
 
 					const bookingType = onMouseOver.match(/Booking Type: (.*) Position:/)?.[1];
 					const baseData: BaseBookingOptions = {
+						id: parseInt((await booking.evaluate((el) => el.getAttribute("href")))?.match(/cb=(\d+)/)?.[1] ?? "-1"),
 						type: bookingType as keyof typeof bookingTypes,
 						position: onMouseOver?.match(/Position: (.*) Date:/)?.[1] ?? "",
 						bookedBy: {
 							name: onMouseOver?.match(/Booked By: ([^\(]*)/)?.[1]?.trim() ?? "",
-							cid: parseInt((onMouseOver.match(/Booked By: ([A-Za-z\s]+) \((\d+)\)/) ?? [])[2] ?? "0"),
+							cid: parseInt((onMouseOver.match(/Booked By: ([A-Za-z\s]+) \((\d+)\)/) ?? [])[2] ?? "-1"),
 						},
 						startTime: Booking.booktimeToDate(
 							`${onMouseOver?.match(/Date: (.*) Book Time:/)?.[1] ?? ""} ${onMouseOver?.match(/Book Time: (.*) -/)?.[1] ?? ""}`
@@ -68,7 +69,7 @@ export async function getMonth(year: number, month: number): Promise<(BaseBookin
 								requestedOn: Booking.timestampToDate(onMouseOver.match(/Date requested: (.*) Mentor:/)?.[1] ?? ""),
 								mentor: {
 									name: onMouseOver.match(/Mentor: ([^\(]*)/)?.[1].trim() ?? "",
-									cid: parseInt(onMouseOver.match(/Mentor: .* \((.*)\)/)?.[1] ?? "0"),
+									cid: parseInt(onMouseOver.match(/Mentor: .* \((.*)\)/)?.[1] ?? "-1"),
 								},
 								acceptedOn: Booking.timestampToDate(onMouseOver.match(/Accepted on: (.*)/)?.[1] ?? ""),
 							};
@@ -83,7 +84,3 @@ export async function getMonth(year: number, month: number): Promise<(BaseBookin
 
 	return data;
 }
-
-await browserInit();
-await getMonth(2023, 10);
-await browserKill();
