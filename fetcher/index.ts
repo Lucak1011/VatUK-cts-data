@@ -1,5 +1,6 @@
 import puppeteer from "puppeteer";
 import { BaseBookingOptions, Booking, MentoringBookingOptions, bookingTypes } from "../types.js";
+import { DB } from "./db.js";
 
 const browser = await puppeteer.launch({ headless: "new" });
 const page = await browser.newPage();
@@ -48,7 +49,7 @@ export async function getMonth(year: number, month: number): Promise<(BaseBookin
 						position: onMouseOver?.match(/Position: (.*) Date:/)?.[1] ?? "",
 						bookedBy: {
 							name: onMouseOver?.match(/Booked By: ([^\(]*)/)?.[1]?.trim() ?? "",
-							cid: parseInt((onMouseOver.match(/Booked By: .* \((.*)\)/) ?? [])[1] ?? "0"),
+							cid: parseInt((onMouseOver.match(/Booked By: ([A-Za-z\s]+) \((\d+)\)/) ?? [])[2] ?? "0"),
 						},
 						startTime: Booking.booktimeToDate(
 							`${onMouseOver?.match(/Date: (.*) Book Time:/)?.[1] ?? ""} ${onMouseOver?.match(/Book Time: (.*) -/)?.[1] ?? ""}`
@@ -75,6 +76,7 @@ export async function getMonth(year: number, month: number): Promise<(BaseBookin
 						}
 						case bookingTypes.Exam: {
 							finalData.bookedBy = null as any;
+							break;
 						}
 					}
 					data.push(finalData);
