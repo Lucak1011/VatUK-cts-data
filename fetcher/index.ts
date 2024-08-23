@@ -1,6 +1,5 @@
 import puppeteer from "puppeteer";
 import { BaseBookingOptions, Booking, MentoringBookingOptions, bookingTypes } from "../types.js";
-import { DB } from "./db.js";
 
 const browser = await puppeteer.launch({ headless: "new" });
 const page = await browser.newPage();
@@ -44,8 +43,10 @@ export async function getMonth(year: number, month: number): Promise<(BaseBookin
 					onMouseOver = onMouseOver.replace(/<[^>]*>/g, "");
 
 					const bookingType = onMouseOver.match(/Booking Type: (.*) Position:/)?.[1];
+					const bookingId = parseInt((await booking.evaluate((el) => el.getAttribute("href")))?.match(/cb=(\d+)/)?.[1] ?? "-1");
 					const baseData: BaseBookingOptions = {
-						id: parseInt((await booking.evaluate((el) => el.getAttribute("href")))?.match(/cb=(\d+)/)?.[1] ?? "-1"),
+						id: bookingId,
+						url: `https://cts.vatsim.uk/bookings/bookinfo.php?cb=${bookingId}`,
 						type: bookingType as keyof typeof bookingTypes,
 						position: onMouseOver?.match(/Position: (.*) Date:/)?.[1] ?? "",
 						bookedBy: {

@@ -1,5 +1,4 @@
 import { browserInit, browserKill, getMonth } from "./index.js";
-import { DB } from "./db.js";
 await browserInit();
 
 let data: any = [];
@@ -11,5 +10,3 @@ for (let year = 2006; year <= new Date().getFullYear(); year++) {
 }
 await browserKill();
 console.log(data.length);
-
-DB.overwrite(data);

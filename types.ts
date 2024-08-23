@@ -12,6 +12,7 @@ interface VatsimUser {
 
 export interface BaseBookingOptions {
 	id: number;
+	url: string;
 	type: keyof typeof bookingTypes;
 	position: string;
 	bookedBy: VatsimUser;
