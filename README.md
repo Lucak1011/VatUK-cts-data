@@ -4,7 +4,7 @@ Parses Vatsim UK CTS booking calendar and outputs a CSV file with the bookings.
 
 ## Usage
 
-Requires non-ancient NodeJS
+Requires non-ancient NodeJS, Clone the repo and cd into it, then
 
 install dependencies:
 
