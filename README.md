@@ -1,15 +1,25 @@
 # cts-data
 
-To install dependencies:
+Parses Vatsim UK CTS booking calendar and outputs a CSV file with the bookings.
+
+## Usage
+
+Requires non-ancient NodeJS
+
+install dependencies:
 
 ```bash
-bun install
+npm i
 ```
 
-To run:
+run:
 
 ```bash
-bun run index.ts
+npm run fetch-month
 ```
 
-This project was created using `bun init` in bun v1.0.0. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.
+```bash
+npm run fetch-month 2021-06
+```
+
+```bash

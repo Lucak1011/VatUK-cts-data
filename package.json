@@ -3,15 +3,12 @@
 	"type": "module",
 	"scripts": {
 		"build": "tsc",
-		"fetch-month": "tsc && node build/fetcher/fetch-last-month.js",
-		"fetch-all": "tsc && node build/fetcher/fetch-historical.js",
-		"build-website": "tsc && node build/builder/website.js"
+		"fetch-month": "tsx fetcher/fetch-last-month.ts",
+		"fetch-all": "tsx fetcher/fetch-historical.ts"
 	},
 	"dependencies": {
-		"dotenv": "^16.3.1",
-		"mongodb": "^6.1.0",
 		"puppeteer": "^21.3.6",
-		"ts-node": "^10.9.1"
+		"tsx": "^4.17.0"
 	},
 	"devDependencies": {
 		"typescript": "^5.2.2"
