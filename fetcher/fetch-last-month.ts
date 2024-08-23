@@ -1,7 +1,6 @@
 import { dumpToCsv } from "./csv.js";
 import { browserInit, browserKill, getMonth } from "./index.js";
 
-// get node system arguments
 const args = process.argv.slice(2);
 
 console.log(args[0]);

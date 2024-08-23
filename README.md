@@ -12,14 +12,16 @@ install dependencies:
 npm i
 ```
 
-run:
+fetch data for a specific month (YYYY-MM):
 
 ```bash
-npm run fetch-month
+npm run fetch-month 2021-01
 ```
 
-```bash
-npm run fetch-month 2021-06
-```
+fetch all data:
 
 ```bash
+npm run fetch-all
+```
+
+All data is saved in the pwd/data directory in the format `YYYY-MM.csv`
